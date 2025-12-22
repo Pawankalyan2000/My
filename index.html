@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bandi Pavan Kalyan Dinesh — 3D Portfolio & Mini Projects</title>
+  <meta name="description" content=".NET / C# developer portfolio with 3D animations, AI/ML demo, weather app, BMI calculator, and Spotify-style UI projects built using HTML, CSS, and JavaScript." />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/24cae36e61.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#0b1220;
+      --muted:#9ca3af;
+      --accent:#38bdf8;
+      --accent-2:#e11d48;
+      --text:#e5e7eb;
+      --glass: rgba(15,23,36,0.3);
+      --radius:12px;
+      --maxw:1200px;
+      --container-pad:22px;
+      --neon: 0 0 14px rgba(56,189,248,0.45), 0 0 30px rgba(225,29,72,0.3);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:32px auto;padding:0 var(--container-pad);position:relative;z-index:2}
+
+    /* Animated gradient + blur blobs background */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(56,189,248,0.25) 0, transparent 55%),
+        radial-gradient(circle at 90% 10%, rgba(244,114,182,0.3) 0, transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(129,140,248,0.3) 0, transparent 55%),
+        linear-gradient(180deg,#020617,#020617);
+      animation: bg-gradient-move 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes bg-gradient-move {
+      0% { filter: saturate(1) hue-rotate(0deg); }
+      50%{ filter: saturate(1.3) hue-rotate(18deg); }
+      100%{ filter: saturate(1.1) hue-rotate(-12deg); }
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:24px;
+      position:relative;
+      z-index:3;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .brand .logo{
+      width:56px;height:56px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:700;font-size:18px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.6);
+      transform:translateZ(0);
+    }
+    nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);font-weight:600;position:relative}
+    nav a:hover{color:var(--accent)}
+    .cta{
+      background:var(--accent);
+      color:#020617;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:600;
+      box-shadow:var(--neon);
+      transform:translateZ(0);
+    }
+    .cta:hover{transform:translateY(-4px); transition: transform .25s ease}
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:28px;
+      align-items:stretch;
+      margin-bottom:32px;
+      position:relative;
+      z-index:3;
+    }
+
+    /* Glassmorphism cards */
+    .card,
+    .hero-card,
+    .profile,
+    .weather-app,
+    .spotify{
+      background:rgba(15,23,42,0.82);
+      border-radius:16px;
+      padding:20px;
+      box-shadow: 0 14px 40px rgba(15,23,42,0.7);
+      border:1px solid rgba(148,163,184,0.35);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-card{padding:28px;}
+
+    .hero h1{font-size:30px;margin:0 0 8px}
+    .lead{margin:0;color:var(--muted)}
+    .tags{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{
+      background:rgba(15,23,42,0.7);
+      padding:8px 12px;border-radius:999px;
+      font-weight:600;color:#e5e7eb;font-size:13px;
+      border:1px solid rgba(148,163,184,0.3);
+    }
+
+    /* Single profile card (Cyber Security & Python) */
+    .profile{
+      text-align:center;
+      transform-style: preserve-3d;
+      transition: transform .25s ease, box-shadow .25s ease;
+      will-change: transform;
+      position:relative;
+      cursor:default;
+    }
+    .profile img{
+      width:210px;
+      height:210px;
+      border-radius:18px;
+      object-fit:cover;
+      border:4px solid #020617;
+      box-shadow:0 14px 32px rgba(15,23,42,0.9);
+    }
+    .profile h3{margin:12px 0 6px;font-size:18px}
+    .profile p{margin:0;color:var(--muted);font-size:14px}
+    .profile::after{
+      content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-10px;
+      width:70%;height:8px;
+      background:linear-gradient(90deg, rgba(56,189,248,0.3), rgba(225,29,72,0.25));
+      border-radius:999px;filter:blur(8px);opacity:0.9;
+    }
+
+    .cube-wrap{perspective:1100px; display:flex; justify-content:center; align-items:center; margin-top:18px}
+    .cube{
+      width:180px;height:180px;position:relative;transform-style:preserve-3d;
+      transform: rotateX(-20deg) rotateY(20deg);
+      transition: transform 0.8s cubic-bezier(.2,.9,.3,1);
+    }
+    .cube:hover{animation:spin 6s linear infinite}
+    .cube-face{
+      position:absolute; width:180px;height:180px; border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#fff;font-size:18px;
+      box-shadow: 0 18px 40px rgba(15,23,36,0.9);backface-visibility:hidden;
+      border:1px solid rgba(148,163,184,0.4);
+    }
+    .face-html{background:linear-gradient(135deg,#e44d26,#f97316)}
+    .face-css{background:linear-gradient(135deg,#2563eb,#38bdf8)}
+    .face-js{background:linear-gradient(135deg,#facc15,#fbbf24); color:#111827}
+    .face-csharp{background:linear-gradient(135deg,#4f46e5,#6366f1)}
+    .face-dotnet{background:linear-gradient(135deg,#0ea5e9,#22c55e)}
+    .face-sql{background:linear-gradient(135deg,#ec4899,#a855f7)}
+    .f-front{transform: translateZ(90px)}
+    .f-back{transform: rotateY(180deg) translateZ(90px)}
+    .f-right{transform: rotateY(90deg) translateZ(90px)}
+    .f-left{transform: rotateY(-90deg) translateZ(90px)}
+    .f-top{transform: rotateX(90deg) translateZ(90px)}
+    .f-bottom{transform: rotateX(-90deg) translateZ(90px)}
+    @keyframes spin{
+      from{ transform: rotateX(-20deg) rotateY(20deg) rotateZ(0)}
+      to{ transform: rotateX(-20deg) rotateY(20deg) rotateZ(360deg)}
+    }
+
+    section{margin-bottom:36px}
+    .grid-2{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+    h2.section-title{margin:0 0 14px;font-size:18px}
+    ul.clean{list-style:none;padding:0;margin:0}
+    ul.clean li{margin-bottom:12px;color:var(--muted)}
+
+    .skills{display:flex;flex-wrap:wrap;gap:10px}
+    .skill{
+      padding:8px 12px;
+      background:rgba(15,23,42,0.9);
+      border-radius:999px;
+      font-weight:700;
+      color:#f9a8d4;
+      font-size:13px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.3);
+      transform:translateY(16px);
+      opacity:0;
+      transition:transform .5s ease, opacity .5s ease;
+    }
+    .skills.visible .skill{
+      transform:none;
+      opacity:1;
+    }
+    .skills.visible .skill:nth-child(1){transition-delay:0.02s}
+    .skills.visible .skill:nth-child(2){transition-delay:0.04s}
+    .skills.visible .skill:nth-child(3){transition-delay:0.06s}
+    .skills.visible .skill:nth-child(4){transition-delay:0.08s}
+    .skills.visible .skill:nth-child(5){transition-delay:0.10s}
+    .skills.visible .skill:nth-child(6){transition-delay:0.12s}
+    .skills.visible .skill:nth-child(7){transition-delay:0.14s}
+    .skills.visible .skill:nth-child(8){transition-delay:0.16s}
+    .skills.visible .skill:nth-child(9){transition-delay:0.18s}
+    .skills.visible .skill:nth-child(10){transition-delay:0.20s}
+    .skills.visible .skill:nth-child(11){transition-delay:0.22s}
+    .skills.visible .skill:nth-child(12){transition-delay:0.24s}
+    .skills.visible .skill:nth-child(13){transition-delay:0.26s}
+
+    .exp-item{
+      border-left:3px solid var(--accent);
+      padding:12px 16px;border-radius:8px;
+      background:rgba(15,23,42,0.9);
+      margin-bottom:14px;
+    }
+    .exp-meta{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin-bottom:8px}
+    .exp-role{font-weight:700;margin:0}
+    .exp-bullets{margin:8px 0 0;padding-left:16px;color:var(--muted)}
+
+    /* Certificates */
+    .cert-card{
+      background:rgba(15,23,42,0.9);
+      border-radius:12px;
+      padding:20px;
+      box-shadow:0 14px 40px rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.4);
+      transform:translateY(24px);
+      opacity:0;
+      filter:blur(8px);
+      transition:transform .6s cubic-bezier(.15,.8,.2,1),opacity .5s ease,filter .5s ease;
+    }
+    .cert-card.visible{
+      transform:none;
+      opacity:1;
+      filter:blur(0);
+    }
+    .cert-list{list-style:none;margin:0;padding:0}
+    .cert-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:12px;
+      color:var(--muted);
+      transform:translateY(18px);
+      opacity:0;
+      transition:transform .45s ease, opacity .45s ease;
+    }
+    .cert-card.visible .cert-item{
+      transform:none;
+      opacity:1;
+    }
+    .cert-card.visible .cert-item:nth-child(1){transition-delay:0.05s}
+    .cert-card.visible .cert-item:nth-child(2){transition-delay:0.10s}
+    .cert-card.visible .cert-item:nth-child(3){transition-delay:0.15s}
+    .cert-card.visible .cert-item:nth-child(4){transition-delay:0.20s}
+    .cert-card.visible .cert-item:nth-child(5){transition-delay:0.25s}
+    .cert-card.visible .cert-item:nth-child(6){transition-delay:0.30s}
+
+    .cert-icon{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#38bdf8,#22c55e);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#020617;
+      font-size:12px;
+      flex-shrink:0;
+      box-shadow:0 6px 18px rgba(15,23,42,0.9);
+    }
+    .cert-name{font-weight:600;color:#e5e7eb;}
+    .cert-meta{font-size:13px;color:var(--muted);}
+
+    /* Virtual internships animation wrapper */
+    .internships{
+      margin-top:16px;
+    }
+    .internship-card{
+      background:rgba(15,23,42,0.9);
+      border-radius:12px;
+      padding:16px;
+      margin-top:10px;
+      border:1px solid rgba(148,163,184,0.35);
+      transform:translateY(22px);
+      opacity:0;
+      filter:blur(6px);
+      transition:transform .6s cubic-bezier(.15,.8,.2,1),opacity .45s ease,filter .45s ease;
+    }
+    .internship-card.visible{
+      transform:none;
+      opacity:1;
+      filter:blur(0);
+    }
+    .internship-header{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .internship-title{
+      font-weight:700;
+      margin:0 0 4px;
+      font-size:14px;
+      color:#e5e7eb;
+    }
+    .internship-bullets{
+      margin:6px 0 0;
+      padding-left:18px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .project{
+      background:rgba(15,23,42,0.9);
+      padding:14px;border-radius:12px;overflow:hidden;
+      transform:translateY(18px);opacity:0;filter:blur(8px);
+      transition: transform .65s cubic-bezier(.15,.8,.2,1), opacity .5s ease, filter .5s ease;
+      box-shadow: 0 16px 40px rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.35);
+    }
+    .project.visible{transform:none;opacity:1;filter:blur(0)}
+    .project h3{margin:0 0 8px;font-size:16px}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+    .project a{display:inline-block;margin-top:12px;font-weight:700}
+    .project .thumbnail{
+      height:120px;border-radius:10px;
+      background:radial-gradient(circle at 0 0,#38bdf8 0,transparent 55%),
+                 radial-gradient(circle at 100% 100%,#e11d48 0,transparent 55%),
+                 #020617;
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:12px;position:relative;overflow:hidden;
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .project:hover .thumbnail{transform:scale(1.04); box-shadow: 0 22px 50px rgba(15,23,42,0.95)}
+
+    .mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+
+    .weather-app{
+      background:linear-gradient(180deg,#0ea5e9,#1d4ed8);
+      color:#f9fafb;padding:16px;
+      box-shadow:0 14px 34px rgba(15,23,42,0.9);
+    }
+    .weather-app h3{margin:0 0 10px}
+    .weather-app input{width:100%;padding:8px 10px;border-radius:8px;border:0;margin-bottom:10px}
+    .weather-app button{width:100%;padding:8px 10px;border-radius:8px;border:0;background:#020617;color:#f9fafb;font-weight:600;cursor:pointer}
+    .weather-result{margin-top:10px;font-size:14px}
+
+    .bmi-card input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #1f2937;margin-bottom:8px;background:#020617;color:#e5e7eb}
+    .bmi-card button{padding:8px 10px;border-radius:8px;border:0;background:var(--accent);color:#020617;font-weight:600;cursor:pointer}
+    .bmi-result{margin-top:8px;font-weight:600}
+
+    .ai-card input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #1f2937;margin-bottom:8px;background:#020617;color:#e5e7eb}
+    .ai-card button{padding:8px 10px;border-radius:8px;border:0;background:var(--accent-2);color:#f9fafb;font-weight:600;cursor:pointer}
+    .ai-image-wrap{margin-top:10px;text-align:center}
+    .ai-image-wrap img{max-width:100%;border-radius:10px;box-shadow:0 16px 40px rgba(15,23,42,0.95);display:none}
+
+    .spotify{
+      background:linear-gradient(145deg,#020617,#020617);
+      border-radius:16px;color:#e5e7eb;padding:16px;
+      box-shadow:0 14px 38px rgba(0,0,0,0.8);font-size:13px;
+      border:1px solid rgba(148,163,184,0.4);
+    }
+    .spotify-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .spotify-main{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}
+    .spotify-cover{
+      width:110px;height:110px;border-radius:16px;
+      background:conic-gradient(from 120deg,#22c55e,#16a34a,#22c55e);
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+      box-shadow:0 18px 40px rgba(0,0,0,0.9);
+    }
+    .spotify-meta h4{margin:0 0 4px;font-size:15px}
+    .spotify-meta p{margin:0;color:#9ca3af;font-size:12px}
+    .spotify-bar{margin-top:12px;height:4px;border-radius:999px;background:#374151;position:relative;overflow:hidden}
+    .spotify-bar::after{content:"";position:absolute;left:0;top:0;height:100%;width:45%;background:linear-gradient(90deg,#22c55e,#a3e635)}
+    .spotify-controls{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:16px}
+
+    .contact-grid{display:grid;grid-template-columns:1fr 380px;gap:20px}
+    form input,form textarea{
+      width:100%;padding:12px;border-radius:10px;
+      border:1px solid #1f2937;margin-top:10px;font-size:14px;
+      background:#020617;color:#e5e7eb;
+    }
+    form button{
+      margin-top:12px;padding:10px 14px;border-radius:10px;border:0;
+      background:var(--accent);color:#020617;font-weight:700;cursor:pointer;
+      box-shadow:var(--neon);
+    }
+
+    a.cta, .project a:hover, .tag:hover{
+      box-shadow: 0 0 18px rgba(56,189,248,0.6), 0 0 40px rgba(225,29,72,0.35);
+    }
+    .project a:hover{transform:translateY(-4px)}
+
+    @media (max-width:980px){
+      .hero, .grid-2, .contact-grid{grid-template-columns:1fr}
+      nav ul{display:none}
+      .hero{gap:16px}
+      .cube{margin:0 auto}
+    }
+    @media (max-width:640px){
+      .wrap{margin:20px auto;padding:0 16px}
+      .profile img{
+        width:170px;
+        height:170px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#header">
+        <div class="logo">BP</div>
+        <div>
+          <div style="font-weight:700">Bandi Pavan Kalyan Dinesh</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:2px">Junior Software Engineer • .NET Developer</div>
+        </div>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certificates">Certificates</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#mini-projects">Mini Apps</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="cta" href="#contact">Hire / Contact</a>
+    </header>
+
+    <main id="header">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Hello — I'm <span style="color:var(--accent)">Bandi Pavan Kalyan</span></h1>
+          <p class="lead">
+           Junior Software Engineer (6-Month Internship)
+           Sparta Cloud Solutions Pvt. Ltd.
+            Worked as a Junior Software Engineer Intern for 6 months, developing backend services and RESTful APIs using C#, ASP.NET Core, and SQL Server for a modular furniture management software. Gained hands-on experience in building, testing, and maintaining scalable backend solutions. Currently learning AI/ML and Generative AI to integrate intelligent features into .NET and web applications.
+          </p>
+
+          <div class="tags" aria-hidden="true">
+            <span class="tag">C#</span>
+            <span class="tag">ASP.NET Core</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">SQL Server</span>
+            <span class="tag">Git</span>
+            <span class="tag">AI / ML (Learning)</span>
+            <span class="tag">Generative AI Images</span>
+          </div>
+
+          <div style="margin-top:18px;">
+            <a class="cta" href="Image/PavanKalyan_Resume.pdf" download>Download CV</a>
+            <a style="margin-left:12px;font-weight:700;color:var(--muted)" href="https://github.com/Pawankalyan2000" target="_blank" rel="noopener">
+              GitHub Profile <i class="fa-solid fa-up-right-from-square" style="font-size:12px;margin-left:6px"></i>
+            </a>
+          </div>
+
+          <div class="cube-wrap" aria-hidden="false">
+            <div class="cube" id="langCube" title="Programming languages">
+              <div class="cube-face face-html f-front">
+                <div style="text-align:center">
+                  <i class="fa-brands fa-html5" style="font-size:36px;margin-bottom:8px"></i>
+                  <div>HTML5</div>
+                </div>
+              </div>
+              <div class="cube-face face-css f-right">
+                <div style="text-align:center">
+                  <i class="fa-brands fa-css3-alt" style="font-size:36px;margin-bottom:8px"></i>
+                  <div>CSS3</div>
+                </div>
+              </div>
+              <div class="cube-face face-js f-top">
+                <div style="text-align:center">
+                  <i class="fa-brands fa-js" style="font-size:36px;margin-bottom:8px"></i>
+                  <div>JavaScript</div>
+                </div>
+              </div>
+              <div class="cube-face face-csharp f-left">
+                <div style="text-align:center">
+                  <i class="fa-solid fa-hashtag" style="font-size:36px;margin-bottom:8px"></i>
+                  <div>C#</div>
+                </div>
+              </div>
+              <div class="cube-face face-dotnet f-back">
+                <div style="text-align:center">
+                  <i class="fa-solid fa-code" style="font-size:36px;margin-bottom:8px"></i>
+                  <div>.NET</div>
+                </div>
+              </div>
+              <div class="cube-face face-sql f-bottom">
+                <div style="text-align:center">
+                  <i class="fa-solid fa-database" style="font-size:36px;margin-bottom:8px"></i>
+                  <div>SQL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single image: Cyber Security & Python -->
+       <aside class="profile" id="tiltProfile" tabindex="0" aria-label="Profile card">
+            <img src="Image/photo3.jpeg" alt="Profile main">
+            <h3>Bandi Pavan Kalyan</h3>
+            <p class="secondary">Junior Software Engineer • Hyderabad, India</p>
+            <p style="margin-top:10px;font-size:14px;color:var(--muted)">
+              Focused on backend development with C# and ASP.NET Core, plus hands-on experience with Excel imports, API integration, and performance optimisation.
+            </p>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+              <span class="skill">C#</span>
+              <span class="skill">ASP.NET</span>
+              <span class="skill">SQL</span>
+              <span class="skill">HTML / CSS / JS</span>
+            </div>
+          </aside>
+      </section>
+
+      <!-- About & Experience -->
+      <section id="about" class="grid-2">
+        <div class="card">
+          <h2 class="section-title">About Me</h2>
+          <p class="secondary">
+            I am Bandi Pavan Kalyan Dinesh, a passionate and results-driven Software Engineer from Kakinada, India, currently working as a .NET Associate Engineer at Sparta Cloud Solutions Pvt. Ltd., Hyderabad.
+          </p>
+          <p class="secondary">
+            I have experience in enterprise web applications using ASP.NET, C#, SQL Server, JavaScript and React.js, plus strong knowledge of REST APIs, OOP and cloud services.
+          </p>
+          <p class="secondary">
+            Beyond development, I actively learn AI/ML, Generative AI, Cyber Security and Cloud Computing through projects and internships.
+          </p>
+
+          <h3 style="margin-top:16px">Key Focus</h3>
+          <ul class="clean">
+            <li>Backend services & REST APIs using C# and ASP.NET Core.</li>
+            <li>SQL data modelling, query optimisation and reporting.</li>
+            <li>Integrating AI/ML & Generative AI APIs to build smart features.</li>
+            <li>End‑to‑end debugging, logging and performance tuning.</li>
+          </ul>
+
+          <h3 style="margin-top:16px">Skills</h3>
+          <div class="skills" id="skillsBlock">
+            <span class="skill">C#</span>
+            <span class="skill">ASP.NET Core</span>
+            <span class="skill">Entity Framework</span>
+            <span class="skill">REST APIs</span>
+            <span class="skill">SQL Server</span>
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Python</span>
+            <span class="skill">Cyber Security</span>
+            <span class="skill">Bootstrap</span>
+            <span class="skill">AI / ML (Learning)</span>
+            <span class="skill">Generative AI Images</span>
+          </div>
+        </div>
+
+        <div class="card" id="experience">
+          <h2 class="section-title">Experience</h2>
+
+          <div style="margin-top:12px">
+            <div class="exp-item">
+              <div class="exp-meta">
+                <div>
+                  <div class="secondary">Sparta Cloud Solutions Pvt Ltd</div>
+                  <div class="muted" style="margin-top:4px">Junior Software Engineer</div>
+                </div>
+                <div class="secondary">June 2025 — December 2025 • Hyderabad</div>
+              </div>
+              <p class="exp-role">Intern — .NET / Debugging & Features</p>
+              <ul class="exp-bullets">
+                <li>Fixed bugs and improved existing modules under senior developer guidance.</li>
+                <li>Learned Agile practices, Git workflow and production deployment basics.</li>
+                <li>Develop REST APIs and backend modules with C#, ASP.NET Core and SQL Server.</li>
+                <li>Implement Excel import flows, business validation and error handling.</li>
+                <li>Participate in code reviews, debugging and performance optimisation.</li>
+              </ul>
+            </div>
+          </div>
+
+          
+
+          <!-- Virtual internships -->
+          <div class="internships">
+            <h3 style="margin-top:10px;margin-bottom:6px;">Virtual Internships</h3>
+
+            <div class="internship-card">
+              <div class="internship-header">
+                <div>
+                  <div class="secondary">All India Council for Technical Education (AICTE)</div>
+                  <div class="muted" style="margin-top:2px;">Python Programming Virtual Internship</div>
+                </div>
+                <div class="secondary">Jan 2024 – Mar 2024 • Remote</div>
+              </div>
+              <p class="internship-title">Intern — Python & Problem Solving</p>
+              <ul class="internship-bullets">
+                <li>Worked with core Python concepts: variables, loops, functions, OOP and exception handling.</li>
+                <li>Completed mini‑projects applying Python to real‑world problem solving and data analysis.</li>
+                <li>Used Pandas, NumPy and Matplotlib for exploratory data analysis and visualisations.</li>
+                <li>Improved debugging skills and wrote clean, well‑structured, optimised Python code.</li>
+              </ul>
+            </div>
+
+            <div class="internship-card">
+              <div class="internship-header">
+                <div>
+                  <div class="secondary">EduSkills Foundation</div>
+                  <div class="muted" style="margin-top:2px;">Cyber Security Virtual Internship (AICTE – EduSkills)</div>
+                </div>
+                <div class="secondary">Jul 2022 – Sep 2022 • Remote</div>
+              </div>
+              <p class="internship-title">Intern — Network & Cloud Security</p>
+              <ul class="internship-bullets">
+                <li>Learned network security, firewalls, threat prevention and cloud security fundamentals.</li>
+                <li>Performed labs for traffic monitoring, basic intrusion detection and security policy configuration.</li>
+                <li>Understood malware basics, risk assessment and secure architecture principles.</li>
+                <li>Completed assessments and gained certification through AICTE & EduSkills.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certificates -->
+      <section id="certificates">
+        <div class="cert-card">
+          <h2 class="section-title">Certificates</h2>
+          <ul class="cert-list">
+            <li class="cert-item">
+              <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
+              <div>
+                <div class="cert-name">Programming in Java</div>
+                <div class="cert-meta">NPTEL • 2023</div>
+              </div>
+            </li>
+            <li class="cert-item">
+              <div class="cert-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div>
+                <div class="cert-name">Cyber Security</div>
+                <div class="cert-meta">EDUNET • 2023</div>
+              </div>
+            </li>
+            <li class="cert-item">
+              <div class="cert-icon"><i class="fa-solid fa-code"></i></div>
+              <div>
+                <div class="cert-name">Java Full Stack</div>
+                <div class="cert-meta">WIPRO • 2023</div>
+              </div>
+            </li>
+            <li class="cert-item">
+              <div class="cert-icon"><i class="fa-brands fa-python"></i></div>
+              <div>
+                <div class="cert-name">Python</div>
+                <div class="cert-meta">DEVSKILLSHUB • 2023</div>
+              </div>
+            </li>
+            <li class="cert-item">
+              <div class="cert-icon"><i class="fa-solid fa-cloud"></i></div>
+              <div>
+                <div class="cert-name">Cloud Foundation</div>
+                <div class="cert-meta">AWS • 2022</div>
+              </div>
+            </li>
+            <li class="cert-item">
+              <div class="cert-icon"><i class="fa-solid fa-user-shield"></i></div>
+              <div>
+                <div class="cert-name">Cyber Security</div>
+                <div class="cert-meta">Agratas Pvt Ltd</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Main projects -->
+      <section id="projects">
+        <h2 class="section-title">Main Projects</h2>
+        <div class="projects" style="margin-top:12px">
+          <div class="project" data-i="0">
+            <div class="thumbnail">
+              <img src="Image/onlineshopping.jpg" alt="Online shopping" style="width:100%;height:100%;object-fit:cover">
+            </div>
+            <h3>Online Shopping Web App</h3>
+            <p>Front-end + mock backend demonstrating product listing, cart and checkout flows. Static UI built with HTML, CSS and JavaScript.</p>
+            <a href="#" target="_blank"></a>
+          </div>
+
+          <div class="project" data-i="1">
+            <div class="thumbnail">
+              <div style="text-align:center;font-weight:700;color:var(--muted)">Modular Furniture</div>
+            </div>
+            <h3>Modular Furniture Management</h3>
+            <p>Company project (work). Backend logic, order lifecycle and inventory management implemented with C#, ASP.NET Core and SQL Server.</p>
+            <a href="#" aria-label="Project details"></a>
+          </div>
+
+          <div class="project" data-i="2">
+            <div class="thumbnail">
+              <div style="text-align:center;font-weight:700;color:var(--muted)">3D Portfolio</div>
+            </div>
+            <h3>This 3D Portfolio</h3>
+            <p>Responsive single-page portfolio with particle background, 3D cube animation and tilt effects using only HTML, CSS and vanilla JavaScript.</p>
+            <a href="https://github.com/Pawankalyan2000" target="_blank" rel="noopener"></a>
+          </div>
+
+          <div class="project" data-i="3">
+            <div class="thumbnail">
+              <div style="text-align:center;">
+                <i class="fa-solid fa-robot" style="font-size:34px;color:var(--accent)"></i>
+                <div style="margin-top:8px;font-weight:700;color:var(--muted)">AI / ML • Security</div>
+              </div>
+            </div>
+            <h3>AI‑Powered Security Insights</h3>
+            <p>Concept project combining anomaly detection wiFackend APIs to flag suspicious login and query behaviour using Python, Flask and basic ML models.</p>
+            <a href="#mini-projects"></a>
+          </div>
+
+          <div class="project" data-i="4">
+            <div class="thumbnail">
+              <div style="text-align:center;">
+                <i class="fa-solid fa-shield-halved" style="font-size:34px;color:var(--accent-2)"></i>
+                <div style="margin-top:8px;font-weight:700;color:var(--muted)">SQL Injection • Crypto</div>
+              </div>
+            </div>
+            <h3>Enhancing SQL Injection Security through Cryptographic Measures</h3>
+            <p>
+              Security‑focused web app built with Python, Flask and MySQL where sensitive fields are encrypted using SHA and RSA techniques to protect data integrity and confidentiality.
+            </p>
+            <p style="margin-top:6px;font-size:13px;color:var(--muted);">
+              Implemented parameterized queries and prepared statements to prevent SQL injection.
+            </p>
+            <a href="#" aria-label="Security project details"></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mini projects -->
+      <section id="mini-projects">
+        <h2 class="section-title">Mini Projects (HTML / CSS / JavaScript)</h2>
+        <div class="mini-grid" style="margin-top:12px">
+          <div class="card ai-card">
+            <h3>AI / ML — Generative Image Demo</h3>
+            <p class="secondary" style="font-size:14px">
+              Front-end for a generative image API. Enter a prompt, and (in real use) the app would call a text‑to‑image endpoint and render the result.
+            </p>
+            <input type="text" id="aiPrompt" placeholder="e.g. Futuristic office workspace in neon lights">
+            <button id="aiGenerateBtn"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate (mock)</button>
+            <div class="ai-image-wrap">
+              <p id="aiStatus" style="font-size:13px;color:var(--muted);margin-top:6px"></p>
+              <img id="aiImage" alt="Generated AI preview">
+            </div>
+          </div>
+
+          <div class="weather-app" id="weatherApp">
+            <h3><i class="fa-solid fa-cloud-sun"></i> Weather App</h3>
+            <p style="font-size:13px;opacity:.9">Simple weather widget using OpenWeather-style API. Built with HTML, CSS and JavaScript.</p>
+            <input type="text" id="weatherCity" placeholder="Enter city name (e.g. Hyderabad)">
+            <button id="weatherBtn">Get Weather</button>
+            <div class="weather-result" id="weatherResult"></div>
+          </div>
+
+          <div class="card bmi-card">
+            <h3>Body Mass Index (BMI) Calculator</h3>
+            <p class="secondary" style="font-size:14px">
+              Enter your height and weight to calculate BMI and category. Pure HTML, CSS, JavaScript.
+            </p>
+            <input type="number" id="bmiHeight" placeholder="Height in cm">
+            <input type="number" id="bmiWeight" placeholder="Weight in kg">
+            <button id="bmiBtn">Calculate BMI</button>
+            <div class="bmi-result" id="bmiResult"></div>
+          </div>
+
+          <div class="spotify">
+            <div class="spotify-header">
+              <div style="font-weight:700;font-size:14px">Spotify Clone (UI)</div>
+              <div><i class="fa-solid fa-spotify" style="color:#22c55e"></i></div>
+            </div>
+            <div class="spotify-main">
+              <div class="spotify-cover">
+                <div>
+                  <div style="font-size:26px">▶</div>
+                  <div style="font-size:11px;margin-top:4px">Now Playing</div>
+                </div>
+              </div>
+              <div class="spotify-meta">
+                <h4>Focus Flow</h4>
+                <p>Deep focus • 40 tracks</p>
+                <div class="spotify-bar"></div>
+              </div>
+            </div>
+            <div class="spotify-controls">
+              <div><i class="fa-solid fa-shuffle"></i></div>
+              <div><i class="fa-solid fa-backward-step"></i></div>
+              <div><i class="fa-solid fa-circle-play" style="font-size:20px;color:#22c55e"></i></div>
+              <div><i class="fa-solid fa-forward-step"></i></div>
+              <div><i class="fa-solid fa-volume-high"></i></div>
+            </div>
+            <p style="margin-top:10px;font-size:11px;color:#9ca3af">
+              Static UI built only with HTML & CSS — demonstrates layout, gradients, and component styling (no audio playback).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="contact-grid">
+        <div class="card">
+          <h2 class="section-title">Get in touch</h2>
+          <p class="secondary">
+            Open to .NET backend roles, full‑stack work and AI‑assisted application projects.
+          </p>
+          <p style="margin-top:12px"><strong>Email</strong><br><a href="mailto:bandipavankalyandinesh@gmail.com">bandipavankalyandinesh@gmail.com</a></p>
+          <p><strong>Phone</strong><br><a href="tel:+919640195342">+91 9640 195 342</a></p>
+          <p><strong>Social</strong></p>
+          <p>
+            <a href="http://www.linkedin.com/in/bandi-pavan-kalyan-dinesh-2545b0189" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            &nbsp;
+            <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            &nbsp;
+            <a href="https://www.instagram.com/pavankalyandinesh/profilecard" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          </p>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">Message me</h2>
+          <form name="submit-to-google-sheet">
+            <input type="text" name="Name" placeholder="Your name" required>
+            <input type="email" name="Email" placeholder="Your email" required>
+            <textarea name="Message" rows="6" placeholder="Your message"></textarea>
+            <button type="submit">Send message</button>
+            <span id="msg" style="display:block;margin-top:10px;color:#22c55e;font-weight:600"></span>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer style="text-align:center;color:var(--muted);padding:18px 0">
+      Made with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> by Bandi Pavan Kalyan • © <span id="year"></span>
+    </footer>
+  </div>
+
+  <!-- Animated particles + glow dots and scroll animations -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function(){
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = innerWidth;
+      let h = canvas.height = innerHeight;
+
+      function resize(){
+        w = canvas.width = innerWidth;
+        h = canvas.height = innerHeight;
+      }
+      addEventListener('resize', resize);
+
+      const dots = [];
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+
+      class Dot {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = rand(0, w);
+          this.y = rand(0, h);
+          this.vx = rand(-0.15, 0.15);
+          this.vy = rand(-0.25, 0.25);
+          this.r  = rand(0.6, 1.8);
+          this.alpha = rand(0.4, 0.9);
+          const palette = ['#38bdf8','#22c55e','#a855f7','#f97316','#e11d48'];
+          this.color = palette[Math.floor(Math.random()*palette.length)];
+        }
+        step() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < -20 || this.x > w+20 || this.y < -20 || this.y > h+20) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = this.color;
+          ctx.shadowColor = this.color;
+          ctx.shadowBlur = 10;
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+      }
+
+      for(let i = 0; i < 220; i++) dots.push(new Dot());
+
+      function frame(){
+        ctx.clearRect(0,0,w,h);
+        dots.forEach(d => { d.step(); d.draw(); });
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(frame);
+      }
+      frame();
+    })();
+
+    (function(){
+      const cube = document.getElementById('langCube');
+      if(!cube) return;
+      function applyRotation(x,y){
+        const rx = (y - window.innerHeight/2) / (window.innerHeight/8);
+        const ry = (x - window.innerWidth/2) / (window.innerWidth/8);
+        cube.style.transform = `rotateX(${ -20 + rx }deg) rotateY(${ 20 + ry }deg)`;
+      }
+      window.addEventListener('mousemove', e => applyRotation(e.clientX,e.clientY));
+      window.addEventListener('touchmove', e => {
+        if(e.touches && e.touches[0]) applyRotation(e.touches[0].clientX,e.touches[0].clientY);
+      }, {passive:true});
+      cube.addEventListener('click', ()=>{
+        cube.style.animation = 'spin 6s linear infinite';
+        setTimeout(()=> cube.style.animation = '', 6000);
+      });
+    })();
+
+    // Animate project cards on scroll
+    (function(){
+      const items = document.querySelectorAll('.project');
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+      }, {threshold:0.18});
+      items.forEach(it => obs.observe(it));
+    })();
+
+    // Certificates scroll animation
+    (function(){
+      const cert = document.querySelector('.cert-card');
+      if(!cert) return;
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+      },{threshold:0.2});
+      obs.observe(cert);
+    })();
+
+    // Internships scroll animation
+    (function(){
+      const cards = document.querySelectorAll('.internship-card');
+      if(!cards.length) return;
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add('visible');
+          }
+        });
+      },{threshold:0.18});
+      cards.forEach(c => obs.observe(c));
+    })();
+
+    // Skills scroll animation
+    (function(){
+      const skills = document.getElementById('skillsBlock');
+      if(!skills) return;
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            skills.classList.add('visible');
+          }
+        });
+      },{threshold:0.25});
+      obs.observe(skills);
+    })();
+
+    // AI / ML generative image demo (mock)
+    (function(){
+      const promptInput = document.getElementById('aiPrompt');
+      const btn = document.getElementById('aiGenerateBtn');
+      const status = document.getElementById('aiStatus');
+      const img = document.getElementById('aiImage');
+      if(!btn) return;
+      btn.addEventListener('click', ()=>{
+        const text = promptInput.value.trim();
+        if(!text){
+          status.textContent = 'Please enter a prompt.';
+          img.style.display = 'none';
+          return;
+        }
+        status.textContent = 'Calling AI model (mock)...';
+        img.style.display = 'none';
+        setTimeout(()=>{
+          status.textContent = 'Demo: In real app, this would be the generated image for: "'+text+'".';
+          img.src = 'https://picsum.photos/seed/' + encodeURIComponent(text) + '/600/360';
+          img.style.display = 'block';
+        }, 1200);
+      });
+    })();
+
+    // Weather app
+    (function(){
+      const cityInput = document.getElementById('weatherCity');
+      const btn      = document.getElementById('weatherBtn');
+      const result   = document.getElementById('weatherResult');
+      if (!btn) return;
+
+      const apiKey2 = "a49cc327eecc327f273e72a4882afcb4";
+      const baseUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+      btn.addEventListener('click', () => {
+        const city = cityInput.value.trim();
+        if (!city){
+          result.textContent = 'Please enter a city.';
+          return;
+        }
+        result.textContent = 'Loading...';
+        fetch(baseUrl + encodeURIComponent(city) + `&appid=${apiKey2}`)
+          .then(r => r.json())
+          .then(d => {
+            if (d.cod !== 200){
+              result.textContent = 'City not found.';
+              return;
+            }
+            result.innerHTML = `
+              <strong>${d.name}</strong><br>
+              ${Math.round(d.main.temp)}°C • ${d.weather[0].main}
+            `;
+          })
+          .catch(() => {
+            result.textContent = 'Error fetching weather.';
+          });
+      });
+    })();
+
+    // BMI calculator
+    (function(){
+      const h = document.getElementById('bmiHeight');
+      const w = document.getElementById('bmiWeight');
+      const btn = document.getElementById('bmiBtn');
+      const res = document.getElementById('bmiResult');
+      if(!btn) return;
+      btn.addEventListener('click', ()=>{
+        const height = parseFloat(h.value);
+        const weight = parseFloat(w.value);
+        if(!height || !weight){
+          res.textContent = 'Please enter height and weight.';
+          return;
+        }
+        const m = height / 100.0;
+        const bmi = weight / (m*m);
+        let cat = '';
+        if(bmi < 18.5) cat = 'Underweight';
+        else if(bmi < 25) cat = 'Normal';
+        else if(bmi < 30) cat = 'Overweight';
+        else cat = 'Obese';
+        res.textContent = 'BMI: ' + bmi.toFixed(1) + ' — ' + cat;
+      });
+    })();
+
+    // Google Sheets form
+    (function(){
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwYyQwxKGzAg62iPesIi293eJjycTyI-jN6ZzZ4ZxsYDAhjj8CDcWVnzV3dFgk3Xs8O/exec';
+      const form = document.forms['submit-to-google-sheet'];
+      const msg = document.getElementById('msg');
+      if(!form) return;
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(() => {
+            msg.textContent = "Message sent successfully";
+            form.reset();
+            setTimeout(()=> msg.textContent = "", 5000);
+          })
+          .catch(error => {
+            msg.textContent = "Oops — there was a problem";
+            console.error('Error!', error.message);
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
